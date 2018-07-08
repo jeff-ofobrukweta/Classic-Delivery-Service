@@ -27,7 +27,7 @@ module.exports.routes = {
   '/': {
     view: 'pages/homepage'
   },
-  'POST /logout': {
+  'GET /logout': {
     controller: 'AuthcontrollerController',
     action: 'logout'
   },

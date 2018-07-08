@@ -27,7 +27,7 @@ module.exports = {
 
 logout:function(req,res){
     req.logout();
-    sails.log('logged out sucessful');
+    res.json('logged out sucessful');
 },
 
 // Register function
@@ -42,11 +42,11 @@ register:async function(req,res){
 
     console.log(JSON.stringify(data,null,2))
 
-   await User.create(data).fetch().exec(function(err,user){
+   await User.create(data).fetch().exec((err,user)=>{
         if(err) return res.negotiate(err)
-        req.login(user,function(err){
+        req.login(user,(err)=>{
             if(err) return res.negotiate(err);
-            console.log('User'+" "+user.id+" "+'has logged in');
+            res.json('User'+" "+user.id+" "+'has logged in');
         })
     })
 }

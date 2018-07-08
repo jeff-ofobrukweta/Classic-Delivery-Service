@@ -12,29 +12,10 @@ module.exports = {
         return res.json(users);
         })
     },
-    create: function (req, res) {
-        const body = req.body;
-        const password = req.password;
-        const confirmPassword = req.confirmPassword;
-        
-        if (password !== confirmPassword) {
-          return res.json(401, {err: 'Password doesn\'t match, Try another!'});
-        }
-        User.create(body).exec(function (err, user) {
-          if (err) {
-            return res.json(err.status, {err: err});
-          }
-          // If user created successfuly we return user and token as response
-          if (user) {
-            // NOTE: payload is { id: user.id}
-            res.json(200, {user: user, token: jwToken.issue({id: user.id})});
-          }
-        });
-      },
     signup(req, res) {
         const body = req.body;
         User.create(body).then((user) => {
-            res.json({user:user,message:"thank you for sigining up for cloud clox..!!"});
+            res.json({user:user,message:"thank you for sigining up "});
         }).catch((err) => {
             console.log(err);
             res.badRequest(err.invalidAttributes);
