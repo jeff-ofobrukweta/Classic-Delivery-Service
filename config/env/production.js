@@ -20,7 +20,9 @@
  */
 
 module.exports = {
-
+  sockets: {
+    onlyAllowOrigins: ["*","http://www.mydeployedapp.com", "http://mydeployedapp.com"]
+  },
 
   /**************************************************************************
   *                                                                         *
@@ -71,7 +73,7 @@ module.exports = {
       * https://sailsjs.com/config/datastores                                     *
       *                                                                           *
       ****************************************************************************/
-      ssl: true,
+      // ssl: true,
 
     },
 
