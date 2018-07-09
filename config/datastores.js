@@ -48,16 +48,16 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-      //  adapter: 'sails-mongo',
-      //  url: 'mongodb://heroku_8r1032sz:trs53st91cdc38s6ec748dkqve@ds161304.mlab.com:61304/heroku_8r1032sz',
-      //  schema:true
+       adapter: 'sails-mongo',
+       url: 'mongodb://heroku_8r1032sz:trs53st91cdc38s6ec748dkqve@ds161304.mlab.com:61304/heroku_8r1032sz',
+       schema:true
 
-        adapter: 'sails-mongo',
-        host: 'localhost',
-        port: 27017,
-        user: '', //optional
-        password: '', //optional
-        database: 'testing' //optional
+        // adapter: 'sails-mongo',
+        // host: 'localhost',
+        // port: 27017,
+        // user: '', //optional
+        // password: '', //optional
+        // database: 'testing' //optional
 
   },
   
