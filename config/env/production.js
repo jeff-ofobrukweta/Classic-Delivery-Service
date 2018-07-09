@@ -149,8 +149,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
    cors: {
-    allowOrigins: ['http://foobar.com','https://owlhoot.com'],
-    allowRequestMethods: 'GET,PUT,POST,OPTIONS,HEAD'
+    allRoutes: true,
+    allowOrigins: '*',
+    allowCredentials: false
   }
 
   },
