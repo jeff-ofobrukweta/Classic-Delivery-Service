@@ -148,11 +148,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-    cors: {
-      allowOrigins: [
-        'https://example.com','*'
-      ]
-    },
+   cors: {
+    allowOrigins: ['http://foobar.com','https://owlhoot.com'],
+    allowRequestMethods: 'GET,PUT,POST,OPTIONS,HEAD'
+  }
 
   },
 
