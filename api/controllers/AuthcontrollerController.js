@@ -37,7 +37,8 @@ register:async function(req,res){
         lastname:req.body.lastname,
         phoneNumber:req.body.phoneNumber,
         email:req.body.email,
-        password:req.body.password
+        password:req.body.password,
+        confirmPassword:req.body.confirmPassword
     }
 
     console.log(JSON.stringify(data,null,2))
