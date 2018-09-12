@@ -5,22 +5,22 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+var jwToken = require('../../config/jwToken.js');
+
 module.exports = {
-    All(req, res){
+All(req, res){
         const body = req.body;
         User.find(body).then((users)=> {
         return res.json(users);
         })
-    },
-    signup(req, res) {
+},
+signup(req, res) {
         const body = req.body;
-        User.create(body).then((user) => {
-            res.json({user:user,message:"thank you for sigining up "});
-        }).catch((err) => {
-            console.log(err);
-            res.badRequest(err.invalidAttributes);
-        });
-    },
+        User.create(body).fetch().exec((err,user)=>{
+            if(err) return res.negotiate(err)
+            res.json({user});
+        })
+},
     singleUser(req,res){
         const id = req.params.id;
         User.findOne(id).then((foundUser) => {
@@ -97,7 +97,28 @@ module.exports = {
             console.log(`sorry the user cannot be updated due to the errors encountered`)
         });
 
-    }
+    },
+    jwtcreate(req,res){
+        const body = req.body;
+        if (req.body.password !== req.body.confirmPassword) {
+          return res.json(401, {err: 'Password doesn\'t match, What a shame!'});
+        }
+        const data =  {
+            user: req.body, 
+            token: jwToken.issue({id: body.id,email:body.email,firstname:body.firstname})
+        }
+        console.log('hello dear vivian');
+        console.log(200,data);
+
+        // User.create(data).then((user) => {
+        //     if (user) {
+        //         console.log(user);
+        //     }
+        // }).catch((err) => {
+        //     console.log(err);
+        //     // res.badRequest(err.invalidAttributes);
+        // });
+      }
 };
 
 

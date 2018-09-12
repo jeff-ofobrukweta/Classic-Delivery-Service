@@ -52,6 +52,21 @@ module.exports.routes = {
     action: 'create'
   },
 
+  'POST /jwtcreate': {
+    controller: 'User',
+    action: 'jwtcreate'
+  },
+  'GET /ambassedorsignup': {
+    controller: 'AuthcontrollerController',
+    action: 'Ambassedorsignup',
+  },
+  
+  'GET /allmessages': {
+    controller: 'AuthcontrollerController',
+    action: 'Allmessages'
+  },
+
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

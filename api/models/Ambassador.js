@@ -1,10 +1,12 @@
 /**
- * User.js
+ * Ambassador.js
  *
  * @description :: A model definition.  Represents a database table/collection/etc.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
+
 const bcrypt = require('bcrypt-nodejs');
+let d = new Date();
 module.exports = {
 
   attributes: {
@@ -22,48 +24,34 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    firstname: {
-      type: 'string',
-      required: true
-    },
-    lastname: {
-      type: 'string',
-      required: true
-    },
-    phoneNumber: {
-      type: 'string',
-      required: true,
-      minLength: 11,
-    },
-    email: {
-      type: 'string',
-      required: true,
-      unique:true
-    },
-    password: {
+    MESSAGE: {
       type: 'string',
       required: true,
       unique:false
     },
-    confirmPassword:{
+    SHORTCODE: {
       type: 'string',
+      required: true,
       unique:false
     },
+    OPERATOR: {
+      type: 'string',
+      required: true,
+      unique:false
+    },
+    MESSAGEID: {
+      type: 'string',
+      required: true,
+      unique:false
+    },
+    SENDER:{
+      type: 'string',
+      required: true,
+      unique:false
+    }
+    
   },
-  customToJSON: function() {
-    return _.omit(this, ['password'])
- },
- beforeCreate: function(user, cb){
-  bcrypt.genSalt(10, function(err, salt){
-    bcrypt.hash(user.password, salt, null, function(err, hash){
-      if(err) return cb(err);
-      user.password = hash;
-      return cb();
-    });
-  });
-  
-},
 };
-// password or esther
-// MyAppleSky
+
+
 

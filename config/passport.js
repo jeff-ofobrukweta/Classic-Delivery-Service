@@ -1,32 +1,44 @@
-const passport = require('passport'),
+var passport = require('passport'),
 LocalStrategy = require('passport-local').Strategy,
 bcryptjs = require('bcryptjs');
 
 
-// serialize the user 
-passport.serializeUser(function(user,cb){
-    cb(null,user.id);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 
-// Deserialize the user 
-passport.deserializeUser(function(id,cb){
-    User.findOne({id}).exec(function(err,user){
-        cb(err,user);
-    });
+passport.deserializeUser(function (id, done) {
+  User.findOne({ id: id }, function (err, user) {
+    done(err, user);
+  });
 });
-
-// Local
 
 passport.use(new LocalStrategy({
-      UserpasswordField:'password',
-      UseremailField:'email'
-},function(username,password){
-    User.findOne({email:email}).exec(function(err,user){
-        if(err) return cb(err);
-        if(!user) return(null,false,{message:'no user found in the record'});
-        bcrypt.compare(password,user.password,function(err,res){
-            if(!res) return cb(null,false,{message:'Invalid Password'});
-            return cb(null,user,{message:'Login Sucessful'});
-        })
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(email, password, done) {
+
+    User.findOne({ email: email }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect email.' });
+      }
+
+      bcryptjs.compare(password, user.password, function (err, res) {
+          if (!res)
+            return done(null, false, {
+              message: 'Invalid Password'
+            });
+          var returnUser = {
+            email: user.email,
+            createdAt: user.createdAt,
+            id: user.id
+          };
+          return done(null, returnUser, {
+            message: 'Logged In Successfully'
+          });
+        });
     });
-}));
+  }
+));

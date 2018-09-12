@@ -7,31 +7,37 @@
 const passport = require('passport');
 
 module.exports = {
-//   Login function
-    login:function(req,res){
-        passport.authenticate('local',function(err,user,info){
-            if(err || !user){
-                res.send({message:info.message,
-                user
+    login:(req, res)=>{
+        passport.authenticate('local', function(err, user, info) {
+            if ((err) || (!user)) {
+                //this part displays all the users in the storage
+                return res.send({
+                    message: info.message,
+                    user: user
+                });
+            }
+            req.logIn(user, function(err) {
+                if (err) res.send(err);
+                console.log({message:info.message});
+                return res.send({
+                    message: info.message,
+                    user: user
+                });
             });
-        }
-        req.login(user,function(err){
-            if(err) res.send(err);
-            console.log('User'+" "+user.id+" "+'has logged in');
-        })
-    })(req,res);
 
-},
+        })(req, res);
+    },
 
 // Logout function
 
 logout:function(req,res){
-    req.logout();
-    res.json('logged out sucessful');
+    // req.logout();
+    // res.json('logged out sucessful');
 },
 
 // Register function
 register:async function(req,res){
+    console.log(req.body.email);
      data ={
         firstname:req.body.firstname,
         lastname:req.body.lastname,
@@ -41,8 +47,6 @@ register:async function(req,res){
         confirmPassword:req.body.confirmPassword
     }
 
-    console.log(JSON.stringify(data,null,2))
-
    await User.create(data).fetch().exec((err,user)=>{
         if(err) return res.negotiate(err)
         req.login(user,(err)=>{
@@ -50,7 +54,32 @@ register:async function(req,res){
             res.json('User'+" "+user.id+" "+'has logged in');
         })
     })
-}
+},
+
+Ambassedorsignup(req, res) {
+    const data = req.query;
+
+    const responseString = data;
+    console.log(responseString);
+    const MESSAGE = responseString.MESSAGE;
+    const MESSAGEID = responseString.SHORTCODE;
+    const SENDER = responseString.SENDER;
+    const OPERATOR = responseString.OPERATOR;
+    const SHORTCODE = responseString.SHORTCODE;
+    
+
+    Ambassador.create(responseString).fetch().exec((err,user)=>{
+            if(err) return res.json({decription:'error please check parameter passed in',status:400}) 
+
+            res.json({OK:'#OK',statuscode:200});
+    })
+},
+Allmessages(req, res){
+    const body = req.body;
+    Ambassador.find(body).then((users)=> {
+    return res.json(users);
+    })
+},
 
 };
 
