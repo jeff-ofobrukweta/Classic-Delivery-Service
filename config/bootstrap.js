@@ -10,8 +10,27 @@
  */
 
 module.exports.bootstrap =  function(done) {
- 
+  const userCred ={
+           firstname :'jeff',
+           lastname :'jeff',
+           phoneNumber :'09096958396',
+           email : 'jeff@gmail.com',
+           password : 'jeff',
+           confirmPassword:'jeff'
+  }
+  User.findOrCreate(userCred, userCred)
+.exec(async(err, user, wasCreated)=> {
+  if (err) { return res.serverError(err); }
 
+  if(wasCreated) {
+    sails.log('Created a new user: ' + user.name);
+  }
+  else {
+    sails.log('Found existing user: ' + user.name);
+  }
+
+  return res.json(user);
+});
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:
