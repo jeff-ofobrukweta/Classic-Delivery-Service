@@ -49,13 +49,18 @@ module.exports = {
       type: 'string',
       unique:false
     },
+
+    ProductModel: {
+      collection: 'Ambassador',
+      via: 'owner'
+    }
   },
   customToJSON: function() {
     return _.omit(this, ['password'])
  },
  beforeCreate: function(user, cb){
   bcrypt.genSalt(10, function(err, salt){
-    bcrypt.hash(user.password, salt, null, function(err, hash){
+    bcrypt.hash(user.password, salt, null,(err, hash)=>{
       if(err) return cb(err);
       user.password = hash;
       return cb();
@@ -64,6 +69,4 @@ module.exports = {
   
 },
 };
-// password or esther
-// MyAppleSky
 

@@ -52,7 +52,10 @@ module.exports.datastores = {
       //  url: 'mongodb://heroku_0gllhftt:ftdhob52bcg3fhbllri45q76n2@ds229771.mlab.com:29771/heroku_0gllhftt',
       //  schema:true
 
-        adapter: 'sails-mongo',
+        // adapter:'sails-disk',
+        // schema:true
+
+       adapter: 'sails-mongo',
         host: 'localhost',
         port: 27017,
         user: '', //optional

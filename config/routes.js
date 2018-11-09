@@ -9,8 +9,6 @@
  */
 
 module.exports.routes = {
-
-
   //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
   //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
@@ -35,13 +33,21 @@ module.exports.routes = {
     controller: 'AuthcontrollerController',
     action: 'login'
   },
+  'POST /updateProduct/:id':{
+    controller:'AuthcontrollerController',
+    action:'updateProduct'
+  },
+  'POST /updateCount/:pd':{
+    controller:'AuthcontrollerController',
+    action:'updateproductViewCount'
+  },
   'GET /All': {
     controller: 'User',
     action: 'All'
   },
-  'POST /register': {
+  'GET /Allproduct': {
     controller: 'AuthcontrollerController',
-    action: 'register'
+    action: 'Allproduct'
   },
   'POST /signup': {
     controller: 'User',
@@ -51,20 +57,31 @@ module.exports.routes = {
     controller: 'User',
     action: 'create'
   },
-
-  'POST /jwtcreate': {
-    controller: 'User',
-    action: 'jwtcreate'
-  },
-  'GET /ambassedorsignup': {
-    controller: 'AuthcontrollerController',
-    action: 'Ambassedorsignup',
-  },
   
-  'GET /allmessages': {
-    controller: 'AuthcontrollerController',
-    action: 'Allmessages'
+  'POST /verify/:token': {
+    controller: 'User',
+    action: 'Verify'
   },
+  'POST /findproduct':{
+      controller:'User',
+      action:'findproduct'
+  },
+  'POST /search':{
+    controller:'AuthcontrollerController',
+    action:'search'
+},
+'POST /addProduct/:id':{
+  controller:'AuthcontrollerController',
+  action:'addProduct'
+},
+'POST /destroyUser/:id':{
+  controller:'User',
+  action:'destroyUser'
+},
+'DELETE /destroyProduct/:id':{
+  controller:'AuthcontrollerController',
+  action:'destroyProduct'
+}
 
 
   /***************************************************************************

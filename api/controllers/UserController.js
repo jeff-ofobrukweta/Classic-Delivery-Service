@@ -4,23 +4,32 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
-var jwToken = require('../../config/jwToken.js');
+'use strict';
+let jwToken = require('../../config/jwToken.js');
 
 module.exports = {
 All(req, res){
         const body = req.body;
-        User.find(body).then((users)=> {
+        User.find(body).populate('ProductModel').then((users)=> {
         return res.json(users);
         })
 },
+
 signup(req, res) {
         const body = req.body;
-        User.create(body).fetch().exec((err,user)=>{
-            if(err) return res.negotiate(err)
-            res.json({user});
+        const data =  {
+            user: req.body, 
+            token: jwToken.issue({id: body.id,email:body.email})
+        }
+        User.create(data.user).fetch().exec((err,user)=>{
+            if(err) return res.json(err.message);
+            res.json({user,token:data.token});
         })
 },
+    Verify(req,res){
+        const token = String(req.params.token)
+        return res.json(jwToken.verify(token));
+    },
     singleUser(req,res){
         const id = req.params.id;
         User.findOne(id).then((foundUser) => {
@@ -31,26 +40,6 @@ signup(req, res) {
           }).catch((err)=>{
             res.badRequest(err);
           });
-    },
-    findonethroughEmail(req, res) {
-        var firstname = req.body.firstname;
-        var email = req.body.email;
-        User.findOne({
-            or: [
-                { firstname: firstname },
-                { email: email }
-            ]
-        }).exec(function (err, user) {
-            console.log(user);
-            res.json(user)
-            if (err) {
-                return res.json({ err });
-            } else if (!user) {
-                var err = new Error('User not found.');
-                err.status = 401;
-                return res.json({ err });
-            }
-        });
     },
     destroyUser(req, res){
         const id = req.params.id;
@@ -63,21 +52,7 @@ signup(req, res) {
             return res.ok();
           });
     },
-    updateUser(req,res){
-        const id = req.params.id;
-        const password = req.body.password;
-        User.update({id:id},
-        {
-            password:password
-        }
-        ).then((updated)=>{
-          res.json(updated[0])
-        }).catch((err)=>{
-            res.badRequest(err);
-            console.log(`sorry the user cannot be updated due to the errors encountered`)
-        });
-       
-    },
+    
     updateUserwithname(req, res) {
         const id = req.params.id;
         const firstname = req.body.firstname;
@@ -107,17 +82,7 @@ signup(req, res) {
             user: req.body, 
             token: jwToken.issue({id: body.id,email:body.email,firstname:body.firstname})
         }
-        console.log('hello dear vivian');
-        console.log(200,data);
-
-        // User.create(data).then((user) => {
-        //     if (user) {
-        //         console.log(user);
-        //     }
-        // }).catch((err) => {
-        //     console.log(err);
-        //     // res.badRequest(err.invalidAttributes);
-        // });
+        return res.json({message:200,data:data});
       }
 };
 
