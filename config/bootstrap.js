@@ -18,8 +18,8 @@ module.exports.bootstrap =  function(done) {
            password : 'jeff',
            confirmPassword:'jeff'
   }
-  User.findOrCreate(userCred, userCred)
-.exec(async(err, user, wasCreated)=> {
+  User.findOrCreate({firstname:'jeff'}, userCred)
+.exec((err, user, wasCreated)=> {
   if (err) { return res.serverError(err); }
 
   if(wasCreated) {
