@@ -23,7 +23,7 @@ module.exports.bootstrap =  function(done) {
   if (err) { return res.serverError(err); }
 
   if(wasCreated) {
-    sails.log('Created a new user: ' + user.name);
+    sails.log('Created a new user: ' + user.firstname);
   }
   else {
     sails.log('Found existing user: ' + user.name);
