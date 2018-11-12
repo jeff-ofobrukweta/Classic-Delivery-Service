@@ -52,8 +52,7 @@ login: function (req, res, next) {
  
       if (user) {
          const userToken =jwToken.issue({user});
-         const userToken2 =jwToken.verify(userToken);
-        res.json({userToken,status:200,userToken2});
+        res.json({userToken,status:200});
       }
       else {
         res.json({message: 'wrong combination of password and email',status:304});
@@ -112,20 +111,31 @@ search(req, res) {
         }
     });
 },
+singlecard(req,res){
+    const idindex = req.params.index;
+    Ambassador.findOne(idindex).then((foundCard) => {
+        if (!foundCard) {
+          return res.notFound('Could not find card having same id credentials, sorry.')
+        }
+        return res.json(foundCard);
+      }).catch((err)=>{
+        res.badRequest(err);
+      });
+},
 updateproductViewCount(req, res) {
     const ProductId = req.params.pd;
-    Ambassador.find(ProductId).exec( (err, item)=> {
-        Ambassador.update({countView:item[0].countView})
-        .set({countView:item[0].countView+1}).fetch();
-        return res.json(item[0].countView);
-        if (err) {
-            return res.json({ err });
-        } else if (!item) {
-            let err = new Error('User not found.');
-            err.status = 401;
-            return res.json({ err });
+    let count = req.body.count;
+    Ambassador.update({ id: ProductId },
+        {
+            countView: count
         }
+    ).then((updated) => {
+        res.ok(200);
+    }).catch((err) => {
+        res.badRequest(err);
+        console.log(`sorry the user cannot be updated due to the errors encountered`)
     });
+    
 }
 };
 

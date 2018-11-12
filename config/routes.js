@@ -37,10 +37,15 @@ module.exports.routes = {
     controller:'AuthcontrollerController',
     action:'updateProduct'
   },
-  'POST /updateCount/:pd':{
+  'PUT /updateCount/:pd':{
     controller:'AuthcontrollerController',
     action:'updateproductViewCount'
   },
+  'GET /singlecard/:index':{
+    controller:'AuthcontrollerController',
+    action:'singlecard'
+  },
+
   'GET /All': {
     controller: 'User',
     action: 'All'
@@ -61,10 +66,6 @@ module.exports.routes = {
   'POST /verify/:token': {
     controller: 'User',
     action: 'Verify'
-  },
-  'POST /findproduct':{
-      controller:'User',
-      action:'findproduct'
   },
   'POST /search':{
     controller:'AuthcontrollerController',

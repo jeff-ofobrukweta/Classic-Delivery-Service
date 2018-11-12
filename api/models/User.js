@@ -24,11 +24,13 @@ module.exports = {
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     firstname: {
       type: 'string',
-      required: true
+      required: true,
+      unique:true
     },
     lastname: {
       type: 'string',
-      required: true
+      required: true,
+      unique:true
     },
     phoneNumber: {
       type: 'string',
@@ -43,13 +45,12 @@ module.exports = {
     password: {
       type: 'string',
       required: true,
-      unique:false
+      unique:true
     },
     confirmPassword:{
       type: 'string',
-      unique:false
+      unique:true
     },
-
     ProductModel: {
       collection: 'Ambassador',
       via: 'owner'
