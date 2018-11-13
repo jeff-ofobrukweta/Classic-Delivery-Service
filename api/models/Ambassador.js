@@ -63,6 +63,16 @@ module.exports = {
       required: false,
       unique:false
     },
+    pictureUrl1:{
+      type: 'string',
+      required: false,
+      unique:false
+    },
+    pictureUrl2:{
+      type: 'string',
+      required: false,
+      unique:false
+    },
 
     PictureModel: {
       collection: 'Pictures',

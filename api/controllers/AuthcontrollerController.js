@@ -34,7 +34,9 @@ updateProduct(req,res){
         ConactUrl :req.body.ConactUrl,
         BuisnessEmail: req.body.BuisnessEmail,
         BuisnessPhonenumber :req.body.BuisnessPhonenumber,
-        BuisnessAddress: req.body.BuisnessAddress
+        BuisnessAddress: req.body.BuisnessAddress,
+        pictureUrl1:req.body.pictureUrl1,
+        pictureUrl2:req.body.pictureUrl2,
     }
     ).then(()=>{
         return res.ok(200);
@@ -69,6 +71,8 @@ login: function (req, res, next) {
         const BuisnessEmail = req.body.BuisnessEmail;
         const BuisnessPhonenumber = req.body.BuisnessPhonenumber;
         const BuisnessAddress = req.body.BuisnessAddress;
+        const pictureUrl1 = req.body.pictureUrl1;
+        const pictureUrl2 = req.body.pictureUrl2;
         
         User.findOne(id).then((result) => { 
             const owner = result.id;
@@ -80,7 +84,9 @@ login: function (req, res, next) {
                 BuisnessEmail,
                 BuisnessPhonenumber,
                 BuisnessAddress,
-                owner
+                owner,
+                pictureUrl1,
+                pictureUrl2
             })
             const sd = Ambassador.create((Productdata)).fetch();
             return Promise.all([sd,result]);
