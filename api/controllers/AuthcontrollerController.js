@@ -36,7 +36,7 @@ updateProduct(req,res){
         BuisnessPhonenumber :req.body.BuisnessPhonenumber,
         BuisnessAddress: req.body.BuisnessAddress,
         pictureUrl1:req.body.pictureUrl1,
-        pictureUrl2:req.body.pictureUrl2,
+        pictureUrl1:req.body.pictureUrl1,
     }
     ).then(()=>{
         return res.ok(200);

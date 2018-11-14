@@ -28,6 +28,7 @@ signup(req, res) {
 },
     Verify(req,res){
         const token = String(req.params.token)
+        if(req.params.token === null){return res.ok(304)}
         return res.json(jwToken.verify(token));
     },
     singleUser(req,res){
